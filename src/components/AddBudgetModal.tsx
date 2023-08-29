@@ -1,11 +1,10 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React, {useRef} from "react";
-import {useBudgets} from "../contexts/BudgetContext.tsx";
+import {useBudgets} from "../contexts/BudgetsContext.tsx";
 
 type AddBudgetModalProps = {
     show: boolean,
     handleClose: () => void
-    // handleSubmit: () => void
 }
 
 export const AddBudgetModal = ({show, handleClose}: AddBudgetModalProps) => {
@@ -14,8 +13,11 @@ export const AddBudgetModal = ({show, handleClose}: AddBudgetModalProps) => {
     const {addBudget} = useBudgets()
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) { //type of e is given by chatGPT. How can I find it myself? write the event handler inline and hover over the event parameter in the function
-        e.preventDefault()
-        addBudget(nameRef.current.value, parseFloat(maxRef.current.value));
+        e.preventDefault();
+        addBudget({
+            name: nameRef.current.value,
+            max:parseFloat(maxRef.current.value)
+        });
         handleClose();
     }
 

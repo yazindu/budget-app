@@ -10,47 +10,40 @@ type BudgetItem = {
 
 type ExpenseItem = {
     id: typeof uuidV4,
-    budgetId: number,
-    // name: string,
-    // max: number
+    budgetId: typeof uuidV4,
     amount: number,
     description: string
 }
 
-type BudgetContextState = {
+type BudgetsContextType = {
     budgets: BudgetItem[]
     expenses: ExpenseItem[]
-    getBudgetExpenses: (budgetId: number) => void
-    addExpense: (description: string, amount: number, budgetId: number) => void
-    addBudget: (name: string, max: number) => void
-    deleteBudget: (id: typeof uuidV4) => void
-    deleteExpense: (id: typeof uuidV4) => void
+    getBudgetExpenses: ({budgetId}:{budgetId: typeof uuidV4}) => ExpenseItem[]
+    addExpense: ({description, amount, budgetId}:{description: string, amount: number, budgetId: typeof uuidV4}) => void
+    addBudget: ({name, max}: { name: string, max: number }) => void //addBudget: (name: string, max: number) => void
+    deleteBudget: ({id}:{id: typeof uuidV4}) => void
+    deleteExpense: ({id}:{id: typeof uuidV4}) => void
 }
 
-// const BudgetContext = React.createContext()
-const BudgetContext = createContext({} as BudgetContextState)
-
-// type BudgetProviderProps = {
-//     children: ReactNode
-// }
+const BudgetsContext = createContext({} as BudgetsContextType)
 
 export function useBudgets() {
-    return useContext(BudgetContext)
+    return useContext(BudgetsContext)
 }
 
 export const BudgetsProvider = ({children}: PropsWithChildren) => {
     const [budgets, setBudgets] = useLocalStorage<BudgetItem[]>("budgets",[])
     const [expenses, setExpenses] = useLocalStorage<ExpenseItem[]>("expenses",[])
 
-    const getBudgetExpenses = (budgetId: number) => {
+    const getBudgetExpenses = ({budgetId}:{budgetId: typeof uuidV4}) : ExpenseItem[] => {
         return expenses.filter(expense => expense.budgetId === budgetId)
     }
-    const addExpense = (description: string, amount: number, budgetId: number) => {
+    const addExpense = ({description, amount, budgetId}:{description: string, amount: number, budgetId: typeof uuidV4}) => {
         setExpenses(prevExpenses => {
             return [...prevExpenses, {id: uuidV4, description: description, amount: amount, budgetId: budgetId}]
         })
     }
-    const addBudget = (name: string, max: number) => {
+    const addBudget = ({name, max}: { name: string, max: number }) => {
         setBudgets(prevBudgets => {
             if (prevBudgets.find(budget => budget.name === name)) {
                 return prevBudgets
@@ -58,29 +51,29 @@ export const BudgetsProvider = ({children}: PropsWithChildren) => {
             return [...prevBudgets, {id: uuidV4, name: name, max: max}]
         })
     }
-    const deleteBudget = (id: typeof uuidV4) => {
+    const deleteBudget = ({id}:{id: typeof uuidV4}) => {
         //TODO Deal with expenses
         setBudgets(prevBudgets => {
             return prevBudgets.filter(budget => budget.id !== id)
         })
     }
-    const deleteExpense = (id: typeof uuidV4) => {
+    const deleteExpense = ({id}:{id: typeof uuidV4}) => {
         setExpenses(prevExpenses => {
             return prevExpenses.filter(expense => expense.id !== id)
         })
     }
 
     return (
-        <BudgetContext.Provider value={{
-            budgets: budgets,
-            expenses: expenses,
-            addExpense: addExpense,
-            deleteBudget: deleteBudget,
-            deleteExpense: deleteExpense,
-            getBudgetExpenses: getBudgetExpenses,
-            addBudget: addBudget
+        <BudgetsContext.Provider value={{
+            budgets,
+            expenses,
+            addExpense,
+            deleteBudget,
+            deleteExpense,
+            getBudgetExpenses,
+            addBudget
         }}>
             {children}
-        </BudgetContext.Provider>
+        </BudgetsContext.Provider>
     )
 }

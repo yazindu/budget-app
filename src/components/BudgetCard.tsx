@@ -1,7 +1,6 @@
 import {Button, Card, ProgressBar, Stack} from "react-bootstrap";
 import {formatCurrency} from "../utils.ts";
 
-
 type BudgetCardProps = {
     name: string,
     amount: number,
