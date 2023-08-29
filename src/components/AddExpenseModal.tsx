@@ -6,7 +6,7 @@ import {v4 as uuidV4} from "uuid";
 type AddExpenseModalProps = {
     show: boolean,
     handleClose: () => void
-    defaultBudgetId: typeof uuidV4
+    defaultBudgetId: string
 }
 
 export const AddExpenseModal = ({show, handleClose}: AddExpenseModalProps) => {
