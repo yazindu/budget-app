@@ -1,5 +1,6 @@
-import {createContext, PropsWithChildren, useContext, useState} from "react";
+import {createContext, PropsWithChildren, useContext} from "react";
 import {v4 as uuidV4} from 'uuid';
+import {useLocalStorage} from "../hooks/useLocalStorage.ts";
 
 type BudgetItem = {
     id: typeof uuidV4,
@@ -38,8 +39,8 @@ export function useBudgets() {
 }
 
 export const BudgetsProvider = ({children}: PropsWithChildren) => {
-    const [budgets, setBudgets] = useState<BudgetItem[]>([])
-    const [expenses, setExpenses] = useState<ExpenseItem[]>([])
+    const [budgets, setBudgets] = useLocalStorage<BudgetItem[]>("budgets",[])
+    const [expenses, setExpenses] = useLocalStorage<ExpenseItem[]>("expenses",[])
 
     const getBudgetExpenses = (budgetId: number) => {
         return expenses.filter(expense => expense.budgetId === budgetId)
