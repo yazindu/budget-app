@@ -6,9 +6,6 @@ function App() {
     const handleClose = () => {
         console.log('hi')
     }
-    const handleSubmit = () => {
-        console.log('hello')
-    }
 
     return (
         <>
@@ -32,7 +29,7 @@ function App() {
                     ></BudgetCard>
                 </div>
             </Container>
-            <AddBudgetModal show={true} handleClose={handleClose} handleSubmit={handleSubmit}/>
+            <AddBudgetModal show={true} handleClose={handleClose}/>
         </>
     )
 }
