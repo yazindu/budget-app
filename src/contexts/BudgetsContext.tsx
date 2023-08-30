@@ -40,7 +40,7 @@ export const BudgetsProvider = ({children}: PropsWithChildren) => {
     }
     const addExpense = ({description, amount, budgetId}:{description: string, amount: number, budgetId: string}) => {
         setExpenses(prevExpenses => {
-            return [...prevExpenses, {id: uuidV4, description: description, amount: amount, budgetId: budgetId}]
+            return [...prevExpenses, {id: uuidV4(), description: description, amount: amount, budgetId: budgetId}]
         })
     }
     const addBudget = ({name, max}: { name: string, max: number }) => {
@@ -48,7 +48,7 @@ export const BudgetsProvider = ({children}: PropsWithChildren) => {
             if (prevBudgets.find(budget => budget.name === name)) {
                 return prevBudgets
             }
-            return [...prevBudgets, {id: uuidV4, name: name, max: max}]
+            return [...prevBudgets, {id: uuidV4(), name: name, max: max}]
         })
     }
     const deleteBudget = ({id}:{id: string}) => {

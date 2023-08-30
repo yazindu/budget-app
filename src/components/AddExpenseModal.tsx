@@ -1,7 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React, {useRef} from "react";
 import {useBudgets} from "../contexts/BudgetsContext.tsx";
-import {v4 as uuidV4} from "uuid";
 
 type AddExpenseModalProps = {
     show: boolean,
@@ -12,7 +11,7 @@ type AddExpenseModalProps = {
 export const AddExpenseModal = ({show, handleClose}: AddExpenseModalProps) => {
     const descriptionRef = useRef<HTMLInputElement>(null!) //is using non-null assertion here okay?
     const amountRef = useRef<HTMLInputElement>(null!)
-    const budgetIdRef = useRef<HTMLInputElement>(null!)
+    const budgetIdRef = useRef<HTMLSelectElement>(null!)
     const {addExpense, budgets} = useBudgets()
     const defaultBudgetId = 'test';
 
