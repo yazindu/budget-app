@@ -27,6 +27,8 @@ type BudgetsContextType = {
 
 const BudgetsContext = createContext({} as BudgetsContextType)
 
+export const UNCATEGORIZED_BUDGET_ID =  'Uncategorized'
+
 export function useBudgets() {
     return useContext(BudgetsContext)
 }

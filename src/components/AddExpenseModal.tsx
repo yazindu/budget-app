@@ -1,6 +1,6 @@
 import {Button, Form, Modal} from "react-bootstrap";
 import React, {useRef} from "react";
-import {useBudgets} from "../contexts/BudgetsContext.tsx";
+import {UNCATEGORIZED_BUDGET_ID, useBudgets} from "../contexts/BudgetsContext.tsx";
 
 type AddExpenseModalProps = {
     show: boolean,
@@ -8,12 +8,11 @@ type AddExpenseModalProps = {
     defaultBudgetId: string
 }
 
-export const AddExpenseModal = ({show, handleClose}: AddExpenseModalProps) => {
+export const AddExpenseModal = ({show, handleClose, defaultBudgetId}: AddExpenseModalProps) => {
     const descriptionRef = useRef<HTMLInputElement>(null!) //is using non-null assertion here okay?
     const amountRef = useRef<HTMLInputElement>(null!)
     const budgetIdRef = useRef<HTMLSelectElement>(null!)
     const {addExpense, budgets} = useBudgets()
-    const defaultBudgetId = 'test';
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) { //type of e is given by chatGPT. How can I find it myself? write the event handler inline and hover over the event parameter in the function
         e.preventDefault()
@@ -54,13 +53,11 @@ export const AddExpenseModal = ({show, handleClose}: AddExpenseModalProps) => {
                             defaultValue={defaultBudgetId}
                             ref={budgetIdRef}>
                             {budgets.map(budget => (
-                                <option
-                                    key={JSON.stringify(budget.id)}
-                                    value={JSON.stringify(budget.id)}
-                                >
+                                <option key={budget.id} value={budget.id}>
                                     {budget.name}
                                 </option>
                             ))}
+                            <option id={UNCATEGORIZED_BUDGET_ID}>Uncategorized</option>
                         </Form.Select>
                     </Form.Group>
                     <div className={'d-flex justify-content-end'}>
