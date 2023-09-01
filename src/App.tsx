@@ -31,7 +31,7 @@ function App() {
                     >Add Budget</Button>
                     <Button onClick={() => openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)} variant={'outline-primary'}>
                         Add Expense</Button>
-                    {/*TODO: check onClick function PASS 43:32*/}
+                    {/*see onClick function PASS 43:32*/}
                 </Stack>
                 <div style={{
                     display: 'grid',
@@ -47,7 +47,7 @@ function App() {
                                 name={budget.name}
                                 amount={amount}
                                 max={budget.max}
-                                gray={false} //TODO check (added byME)
+                                gray={false}
                                 onAddExpenseClick={() => openAddExpenseModal(budget.id)}
                                 onViewExpensesClick={() => setViewExpensesModalBudgetId(budget.id)}
                                 hideButtons={false}
@@ -73,7 +73,7 @@ function App() {
             />
             <ViewExpensesModal
                 budgetId={viewExpensesModalBudgetId}
-                handleClose={() => setViewExpensesModalBudgetId('close')} //replaced null with 'close' //TODO 54:54
+                handleClose={() => setViewExpensesModalBudgetId('close')} //replaced null with 'close' //see 54:54
             />
         </>
     )

@@ -25,7 +25,7 @@ export const ViewExpensesModal = ({budgetId, handleClose}: ViewExpensesModalProp
                         <div>Expenses - {budget?.name}</div>
                         {budgetId !== UNCATEGORIZED_BUDGET_ID && (
                             <Button onClick={() => {
-                                deleteBudget({id: budgetId}) //TODO 53:35
+                                deleteBudget({id: budgetId})
                                 handleClose()
                             }} variant={"outline-danger"}>Delete</Button>
                         )}
