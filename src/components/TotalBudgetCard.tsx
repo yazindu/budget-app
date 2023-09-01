@@ -1,5 +1,5 @@
 import {BudgetCard} from "./BudgetCard.tsx";
-import {UNCATEGORIZED_BUDGET_ID, useBudgets} from "../contexts/BudgetsContext.tsx";
+import {useBudgets} from "../contexts/BudgetsContext.tsx";
 
 export const TotalBudgetCard = () => {
     const {expenses, budgets} = useBudgets()
@@ -7,6 +7,15 @@ export const TotalBudgetCard = () => {
     const max = budgets.reduce((total, budget) => total + budget.max, 0)
     if (max === 0) return null
     return (
-        <BudgetCard amount={amount} name={'Total'} gray max={max} hideButtons/>
+        <BudgetCard
+            amount={amount}
+            name={'Total'}
+            gray
+            max={max}
+            hideMax={false}
+            hideButtons
+            onAddExpenseClick={()=>undefined}
+            onViewExpensesClick={()=>undefined}
+        />
     )
 }

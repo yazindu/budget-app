@@ -5,15 +5,16 @@ export type BudgetCardProps = {
     name: string,
     amount: number,
     max: number
+    hideMax : boolean
     gray: boolean
     hideButtons: boolean
     onAddExpenseClick: () => void
     onViewExpensesClick: ()=> void
 }
 
-export const BudgetCard = ({name, amount, max, gray, onAddExpenseClick, hideButtons, onViewExpensesClick}: BudgetCardProps) => {
+export const BudgetCard = ({name, amount, max, hideMax, gray, onAddExpenseClick, hideButtons, onViewExpensesClick}: BudgetCardProps) => {
     const classNames: String[] = []
-    if (amount > max) {
+    if (amount > max && !hideMax) {
         classNames.push('bg-danger', 'bg-opacity-10')
     } else if (gray) {
         classNames.push('bg-light')
@@ -25,12 +26,12 @@ export const BudgetCard = ({name, amount, max, gray, onAddExpenseClick, hideButt
                     <div>{name}</div>
                     <div className={"d-flex align-items-baseline"}>
                         {formatCurrency(amount)}
-                        {max && (<span className={'text-muted fs-6 ms-1'}>
+                        {!hideMax && (<span className={'text-muted fs-6 ms-1'}>
                          / {formatCurrency(max)}
                         </span>)}
                     </div>
                 </Card.Title>
-                {max && (<ProgressBar
+                {!hideMax && (<ProgressBar
                     className={'rounded-pill'}
                     variant={getProgressBarVariant(amount, max)}
                     min={0}

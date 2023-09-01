@@ -12,7 +12,7 @@ function App() {
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
     const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
     const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState('')
-    const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState(null)
+    const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState('close')
     const {budgets, getBudgetExpenses} = useBudgets()
 
     function openAddExpenseModal(budgetID: string) {
@@ -50,6 +50,8 @@ function App() {
                                 gray={false} //TODO check (added byME)
                                 onAddExpenseClick={() => openAddExpenseModal(budget.id)}
                                 onViewExpensesClick={() => setViewExpensesModalBudgetId(budget.id)}
+                                hideButtons={false}
+                                hideMax={false}
                             />
                         )
                     })}
@@ -71,7 +73,7 @@ function App() {
             />
             <ViewExpensesModal
                 budgetId={viewExpensesModalBudgetId}
-                handleClose={() => setViewExpensesModalBudgetId(null)} //TODO 54:54
+                handleClose={() => setViewExpensesModalBudgetId('close')} //replaced null with 'close' //TODO 54:54
             />
         </>
     )
