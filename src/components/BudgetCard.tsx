@@ -13,7 +13,7 @@ export type BudgetCardProps = {
 }
 
 export const BudgetCard = ({name, amount, max, hideMax, gray, onAddExpenseClick, hideButtons, onViewExpensesClick}: BudgetCardProps) => {
-    const classNames: String[] = []
+    const classNames: string[] = []
     if (amount > max && !hideMax) {
         classNames.push('bg-danger', 'bg-opacity-10')
     } else if (gray) {
