@@ -1,6 +1,6 @@
 import {UNCATEGORIZED_BUDGET_ID, useBudgets} from "../contexts/BudgetsContext.tsx";
 import {Button, Modal, Stack} from "react-bootstrap";
-import {formatCurrency} from "../utils.ts";
+import {CommonUtils} from "../utils/common_utils.ts";
 
 type ViewExpensesModalProps = {
     budgetId: string,
@@ -37,7 +37,7 @@ export const ViewExpensesModal = ({budgetId, handleClose}: ViewExpensesModalProp
                     {expenses.map(expense => (
                         <Stack direction={'horizontal'} gap={2} key={expense.id}>
                             <div className={'me-auto fs-4'}>{expense.description}</div>
-                            <div className={'fs-5'}>{formatCurrency(expense.amount)}</div>
+                            <div className={'fs-5'}>{CommonUtils.formatCurrency(expense.amount)}</div>
                             <Button size={'sm'}
                                     variant={'outline-danger'}
                                     onClick={()=>deleteExpense(expense)}

@@ -1,5 +1,5 @@
 import {Button, Card, ProgressBar, Stack} from "react-bootstrap";
-import {formatCurrency} from "../utils.ts";
+import {CommonUtils} from "../utils/common_utils.ts";
 
 export type BudgetCardProps = {
     name: string,
@@ -25,9 +25,9 @@ export const BudgetCard = ({name, amount, max, hideMax, gray, onAddExpenseClick,
                 <Card.Title className={"d-flex justify-content-between align-items-baseline fw-normal mb-3"}>
                     <div>{name}</div>
                     <div className={"d-flex align-items-baseline"}>
-                        {formatCurrency(amount)}
+                        {CommonUtils.formatCurrency(amount)}
                         {!hideMax && (<span className={'text-muted fs-6 ms-1'}>
-                         / {formatCurrency(max)}
+                         / {CommonUtils.formatCurrency(max)}
                         </span>)}
                     </div>
                 </Card.Title>
